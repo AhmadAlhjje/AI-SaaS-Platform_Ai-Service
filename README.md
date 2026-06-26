@@ -39,8 +39,9 @@ Model id prefix decides the provider (`app/llm/factory.py`):
 - `gpt-*`, `o1*`, `o3*`, `o4*`, `chatgpt-*` → OpenAI (`OPENAI_API_KEY`)
 - `claude-*` → Anthropic (`ANTHROPIC_API_KEY`)
 - `deepseek-*` → DeepSeek (`DEEPSEEK_API_KEY`) — OpenAI-compatible API, much cheaper than OpenAI/Anthropic; a good low-cost default (e.g. `deepseek-chat`)
+- `llama*`, `mistral*`, `qwen*`, `gemma*`, `phi*` → Ollama (`OLLAMA_BASE_URL`) — local inference, free, no API key. Requires `ollama serve` running and the model pulled first: `ollama pull llama3.1:8b`
 
-A request for a model with no configured key, or an unrecognized prefix, returns `502` — not a crash.
+A request for a model with no configured key, or an unrecognized prefix, returns `502` — not a crash. A company picks its model per-request via `AiConfiguration.model` (backend) — switching between any of the four providers needs no code change, just a different model id.
 
 ## Embeddings
 
